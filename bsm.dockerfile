@@ -88,6 +88,5 @@ USER root
 RUN composer install
 RUN cp /var/www/html/.env.example /var/www/html/.env
 
-RUN chmod -R 777 ./storage/framework
-RUN chmod -R 777 ./bootstrap/cache
-RUN chmod -R 777 ./storage/logs
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chmod -R 775 /var/www/html/storage
