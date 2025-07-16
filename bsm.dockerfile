@@ -13,8 +13,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip \
-	php-redis
+    unzip
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -86,3 +85,4 @@ RUN git config --global http.sslVerify false
 USER root
 
 RUN composer install
+RUN COPY /var/www/html/.env.example /var/www/html/.env
