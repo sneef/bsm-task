@@ -89,3 +89,4 @@ RUN composer install
 RUN cp /var/www/html/.env.example /var/www/html/.env
 
 RUN chown -R www-data:www-data /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
