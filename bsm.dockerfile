@@ -89,4 +89,3 @@ RUN composer install
 RUN cp /var/www/html/.env.example /var/www/html/.env
 
 RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
