@@ -20,7 +20,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
     apt-get install -y libpq-dev && \
-    docker-php-ext-install pdo pdo_pgsql pgsql
+    docker-php-ext-install pdo pdo_pgsql pgsql pcntl
 # Install PHP extensions
 #RUN docker-php-ext-install mbstring exif pcntl bcmath gd
 RUN pecl update-channels
@@ -33,6 +33,9 @@ RUN mkdir -p /home/$user/.composer && \
 
 # Set working directory
 WORKDIR /var/www/html
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN apt-get -y update && \
 	apt-get -y install git
@@ -79,3 +82,5 @@ RUN usermod -aG sudo git
 RUN git config --global http.sslVerify false
 
 USER root
+
+RUN composer install
