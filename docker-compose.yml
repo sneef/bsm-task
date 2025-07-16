@@ -1,0 +1,51 @@
+services:
+    app:
+        build:
+            args:
+                user: git
+                password: Rn742NrLiE2
+                uid: 1401
+            context: ./
+            dockerfile: bsm.dockerfile
+        image: bsm-app
+        container_name: bsm-app
+        restart: unless-stopped
+        working_dir: /var/www/html
+        networks:
+            - bsm-network
+        ports:
+            - '9018:9001'
+        volumes:
+            - web_root:/var/www/html
+    nginx:
+        image: nginx:1.17-alpine
+        container_name: bsm-app-nginx
+        restart: unless-stopped
+        ports:
+            - 8022:80
+        volumes:
+            - web_root:/var/www/html
+            - ./.docker/nginx:/etc/nginx/conf.d
+        networks:
+            - bsm-network
+    redis:
+        image: redis:7.2.4-alpine
+        container_name: -redis
+        restart: unless-stopped
+        ports:
+            - 6382:6379
+        command: redis-server --save 20 1 --loglevel warning
+        volumes:
+            - cache:/data
+            - ./.docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+        networks:
+            - bsm-network
+networks:
+    bsm-network:
+        driver: bridge
+
+volumes:
+    web_root:
+    cache:
+        driver: local
+
