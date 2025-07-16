@@ -25,6 +25,7 @@ RUN apt-get update && \
 # Install PHP extensions
 #RUN docker-php-ext-install mbstring exif pcntl bcmath gd
 RUN pecl update-channels
+RUN pecl install redis
 
 COPY ./.docker/php /usr/local/etc/php
 
