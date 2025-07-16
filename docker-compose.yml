@@ -30,6 +30,8 @@ services:
             - bsm-network
         ports:
             - '5493:5432'
+        volumes:
+            - ./.docker/postgres/postgresql.conf:/etc/postgresql.conf
     nginx:
         image: nginx:1.17-alpine
         container_name: bsm-app-nginx
@@ -43,7 +45,7 @@ services:
             - bsm-network
     redis:
         image: redis:7.2.4-alpine
-        container_name: -redis
+        container_name: bsm-redis
         restart: unless-stopped
         ports:
             - 6382:6379

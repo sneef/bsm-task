@@ -67,7 +67,7 @@ RUN touch /home/git/.ssh/known_host
 RUN ssh-keyscan github.com >> /home/git/.ssh/known_hosts
 
 # Clone the conf files into the docker container
-RUN git clone https://github.com/sneef/ecommpay.git ./ && \
+RUN git clone https://github.com/sneef/bsm-task.git ./ && \
     chmod g+w .git -R
 
 RUN	usermod -aG root $user
