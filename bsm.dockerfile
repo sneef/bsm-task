@@ -24,7 +24,8 @@ RUN apt-get update && \
 # Install PHP extensions
 #RUN docker-php-ext-install mbstring exif pcntl bcmath gd
 RUN pecl update-channels
-RUN pecl install redis
+RUN pecl install xdebug
+RUN pecl install redis && docker-php-ext-enable redis
 
 COPY ./.docker/php /usr/local/etc/php
 
@@ -85,4 +86,4 @@ RUN git config --global http.sslVerify false
 USER root
 
 RUN composer install
-RUN COPY /var/www/html/.env.example /var/www/html/.env
+RUN cp /var/www/html/.env.example /var/www/html/.env
