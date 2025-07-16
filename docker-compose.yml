@@ -17,6 +17,19 @@ services:
             - '9018:9001'
         volumes:
             - web_root:/var/www/html
+    db:
+        image: postgres:16.2-alpine3.19
+        command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
+        container_name: bsm-db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        networks:
+            - bsm-network
+        ports:
+            - '5493:5432'
     nginx:
         image: nginx:1.17-alpine
         container_name: bsm-app-nginx
