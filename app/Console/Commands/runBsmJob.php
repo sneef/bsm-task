@@ -27,7 +27,7 @@ class runBsmJob extends Command
     public function handle()
     {
         //We create two parallel tasks:
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 1; $i++) {
             BlackScaleMedia::dispatch($i)
                 ->onQueue('default');
             

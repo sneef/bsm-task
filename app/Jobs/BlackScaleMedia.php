@@ -3,12 +3,15 @@
 namespace App\Jobs;
 
 use App\Services\QueueProcessingService;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class BlackScaleMedia implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $service;
 
@@ -17,7 +20,6 @@ class BlackScaleMedia implements ShouldQueue
      */
     public function __construct()
     {
-        info('construct');
         $this->service = new QueueProcessingService();
     }
 
@@ -26,8 +28,6 @@ class BlackScaleMedia implements ShouldQueue
      */
     public function handle(): void
     {
-        info('handle queue');
-
         $this->service->create();
     }
 }
